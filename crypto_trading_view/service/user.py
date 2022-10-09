@@ -7,10 +7,18 @@ async def create_user(name: str):
         session.add(User(name=name))
         await session.commit()
 
+
 async def delete_user(user_id: int):
     async with async_session() as session:
         await session.execute(delete(User).where(User.id == user_id))
         await session.commit()
+
+
+async def get_by_id(user_id):
+    async with async_session() as session:
+        result = await session.execute(select(User).where(User.id==user_id))
+        return result.scalars()
+
 
 async def list_users():
     async with async_session() as session:
