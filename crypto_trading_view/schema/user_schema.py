@@ -1,7 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-
-import symbol
+from crypto import Favorite
 
 
 class UserCreateInput(BaseModel):
