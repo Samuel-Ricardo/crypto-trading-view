@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from service._ import create_user, delete_user, list_users
+from service._ import create_user, delete_user, list_users, get_by_id
 from schema.index import UserCreateInput, UserDeleteInput, StandardOutput
 
 async def create(input: UserCreateInput):
@@ -21,5 +21,12 @@ async def delete(input: UserDeleteInput):
 async def list():
     try:
         return await list_users()
+    except Exception as error:
+        raise HTTPException(400, detail=str(error))
+
+
+async def get(id: int):
+    try:
+        return await get_by_id()
     except Exception as error:
         raise HTTPException(400, detail=str(error))
