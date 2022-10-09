@@ -35,3 +35,16 @@ async def daily_reports(user_id):
         return await gather(*tasks)
     except Exception as error:
         raise HTTPException(400, detail=str(error))
+
+
+async def reports_in_interval(user_id:int, interval:int):
+    try:
+        user = await get_by_id(user_id)
+        favorites = [favorites.symbol for favorite in user.favorites]
+        
+        initial_date = date.today() - timedelta(days=interval)
+        
+        tasks = [day_summary_of(symbol, initial_date) for symbol in favorites]
+        return await gather(*tasks)
+    except Exception as error:
+        raise HTTPException(400, detail=str(error))
