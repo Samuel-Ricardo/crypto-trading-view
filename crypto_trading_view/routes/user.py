@@ -8,3 +8,6 @@ user_router = APIRouter(prefix='/user')
 @user_router.post('/create', description='My description', response_model=StandardOutput, responses= {400: {'model': ErrorOutput}})
 async def create_user(input: UserCreateInput):
     return create(input)
+
+async def user_delete(user_id: int):
+    delete(UserDeleteInput(user_id))
