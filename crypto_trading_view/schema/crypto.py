@@ -7,3 +7,9 @@ class Favorite(BaseModel):
     symbol: str
     user_id: int
     config: Config
+
+
+class DaySummaryOutput(BaseModel):
+    highest: float
+    lowest: float
+    symbol: str
