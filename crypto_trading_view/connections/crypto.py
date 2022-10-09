@@ -13,3 +13,13 @@ async def day_summary(symbol: str):
             'lowest': data['lowest'],
             'symbol': symbol
         }
+
+async def day_summary_of(symbol: str, date: date):
+    async with ClientSession() as session:
+        response = await session.get(MERCADO_BITCOIN_API_URL(symbol, date))
+        data = await response.json()
+        return {
+            'highest': data['highest'],
+            'lowest': data['lowest'],
+            'symbol': symbol
+        }
