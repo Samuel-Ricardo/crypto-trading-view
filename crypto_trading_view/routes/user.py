@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter
+from favorite import favorite_routes
 from controller.user import create, delete,  list, get
 from schema.commons_schema import StandardOutput, ErrorOutput
 from schema.user_schema import UserCreateInput, UserDeleteInput, UserListOutput
@@ -24,3 +25,6 @@ async def list_all():
 @user_router.get("/{user_id}", response_model=List[UserListOutput], responses= {400: {'model':ErrorOutput}})
 async def get_by_id(user_id: int):
     return await get(user_id)
+
+
+user_router.include_router(favorite_routes)
