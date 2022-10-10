@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from schema.index import StandardOutput, ErrorOutput, UserAddFavoriteInput
-from service.favorite import add_favorite
+from service.favorite import add_favorite, remove_favorite
 
 
 favorite_routes = APIRouter(prefix='/favorites')
@@ -15,7 +15,7 @@ async def add_favorite(input: UserAddFavoriteInput):
 
 
 @favorite_routes.delet('/{user_id}', response_model=StandardOutput, responses= {400: {'model': ErrorOutput}})
-async def remove_favorite(user_id: int, symbol: str):
+async def delete_favorite(user_id: int, symbol: str):
     try:
         await remove_favorite(user_id, symbol)
         return StandardOutput(message='Ok')
